@@ -62,7 +62,7 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
                 .getString(R.string.notification_title)
         )
         .setContentText(messageBody)
-        .setContentIntent(snoozePendingIntent)
+        .setContentIntent(contentPendingIntent)
         .setAutoCancel(true)
         .setOnlyAlertOnce(true)
         .setStyle(bigPictureStyle)
@@ -72,6 +72,7 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
             applicationContext.getString(R.string.snooze),
             snoozePendingIntent
         )
+        .setPriority(NotificationCompat.PRIORITY_HIGH)
 
     // TODO: Step 2.3 add snooze action
 

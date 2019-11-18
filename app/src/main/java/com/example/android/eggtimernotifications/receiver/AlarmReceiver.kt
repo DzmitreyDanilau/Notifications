@@ -36,12 +36,13 @@ class AlarmReceiver : BroadcastReceiver() {
             val notificationChannel = NotificationChannel(
                 channelId,
                 channelName,
-                NotificationManager.IMPORTANCE_LOW
+                NotificationManager.IMPORTANCE_HIGH
             )
             notificationChannel.enableLights(true)
             notificationChannel.lightColor = Color.RED
             notificationChannel.enableLights(true)
             notificationChannel.enableVibration(true)
+            notificationChannel.setShowBadge(true)
             notificationManager.createNotificationChannel(notificationChannel)
         }
     }
