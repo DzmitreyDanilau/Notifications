@@ -25,12 +25,18 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
     // Create the content intent for the notification, which launches
     // this activity
     val contentIntent = Intent(applicationContext, MainActivity::class.java)
-    // TODO: Step 1.12 create PendingIntent
     val contentPendingIntent = PendingIntent.getActivity(
         applicationContext,
         NOTIFICATION_ID,
         contentIntent,
         PendingIntent.FLAG_UPDATE_CURRENT
+    )
+    val snoozeIntent = Intent(applicationContext, SnoozeReceiver::class.java)
+    val snoozePendingIntent = PendingIntent.getBroadcast(
+        applicationContext,
+        REQUEST_CODE,
+        snoozeIntent,
+        FLAGS
     )
     // TODO: Step 2.0 add style
     val eggImage = BitmapFactory
@@ -50,18 +56,22 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
 
         // TODO: Step 1.8 use the new 'breakfast' notification channel
 
-        // TODO: Step 1.3 set title, text and icon to builder
         .setSmallIcon(R.drawable.cooked_egg)
         .setContentTitle(
             applicationContext
                 .getString(R.string.notification_title)
         )
         .setContentText(messageBody)
-        .setContentIntent(contentPendingIntent)
+        .setContentIntent(snoozePendingIntent)
         .setAutoCancel(true)
         .setOnlyAlertOnce(true)
         .setStyle(bigPictureStyle)
         .setLargeIcon(eggImage)
+        .addAction(
+            R.drawable.egg_icon,
+            applicationContext.getString(R.string.snooze),
+            snoozePendingIntent
+        )
 
     // TODO: Step 2.3 add snooze action
 
